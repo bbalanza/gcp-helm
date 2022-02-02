@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "group_21.fullname" . }}
+  name: {{ include "persistent-layer.fullname" . }}
   labels:
-    {{- include "group_21.labels" . | nindent 4 }}
+    {{- include "persistent-layer.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "group_21.selectorLabels" . | nindent 4 }}
+    {{- include "persistent-layer.selectorLabels" . | nindent 4 }}
