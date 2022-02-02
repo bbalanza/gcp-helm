@@ -1,12 +1,11 @@
 {{- $name := include "persistent-layer.name" . -}}
-{{- $fullName := include "persistent-layer.fullname" . -}}
 {{- $selectorLabels := include "persistent-layer.selectorLabels" . -}}
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: {{ $fullName }}
+  name: {{ $name }}-statefulSet
 spec:
-  serviceName: {{ $fullName }}
+  serviceName: {{ $name }}
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels: {{ $selectorLabels | nindent 6 }}
@@ -15,5 +14,18 @@ spec:
       labels: {{ $selectorLabels | nindent 8 }}
     spec:
       containers:
-        - name: {{ $name }}
+        - name: "{{ $name }}-container"
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}" 
+          imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent"}}
+          ports:
+            - containerPort: {{ .Values.statefulSet.containerPort | default 5432}}
+          envFrom:
+            - configMapRef:
+              name: {{ $name }}-config
+          env:
+            - name: POSTGRESS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $name }}-secret
+                  key: POSTGRESS_PASSWORD
+          
