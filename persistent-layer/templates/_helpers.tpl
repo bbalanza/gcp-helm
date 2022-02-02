@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "group_21.name" -}}
+{{- define "persistent-layer.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "group_21.fullname" -}}
+{{- define "persistent-layer.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "group_21.chart" -}}
+{{- define "persistent-layer.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "group_21.labels" -}}
-helm.sh/chart: {{ include "group_21.chart" . }}
-{{ include "group_21.selectorLabels" . }}
+{{- define "persistent-layer.labels" -}}
+helm.sh/chart: {{ include "persistent-layer.chart" . }}
+{{ include "persistent-layer.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "group_21.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "group_21.name" . }}
+{{- define "persistent-layer.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "persistent-layer.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "group_21.serviceAccountName" -}}
+{{- define "persistent-layer.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "group_21.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "persistent-layer.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}

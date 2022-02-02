@@ -1,0 +1,19 @@
+{{- $name := include "persistent-layer.name" . -}}
+{{- $fullName := include "persistent-layer.fullname" . -}}
+{{- $selectorLabels := include "persistent-layer.selectorLabels" . -}}
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ $fullName }}
+spec:
+  serviceName: {{ $fullName }}
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels: {{ $selectorLabels | nindent 6 }}
+  template:
+    metadata:
+      labels: {{ $selectorLabels | nindent 8 }}
+    spec:
+      containers:
+        - name: {{ $name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}" 

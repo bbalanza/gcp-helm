@@ -1,0 +1,4 @@
+POSTGRES_DB: testdb
+POSTGRES_USER: testdbuser
+POSTGRES_PASSWORD: testdbuserpassword
+PGDATA: /data/pgdata
