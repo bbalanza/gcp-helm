@@ -1,0 +1,13 @@
+metadata: 
+  name: {{printf "%s-pv-volume" ( include "persistent-layer.name" . )}} 
+  labels: {{ include "persistent-layer.labels" . | nindent 4 }}
+spec: 
+  storageClassName: {{ .Values.persistentVolume.storageClassName }}
+  capacity: 
+    storage: {{ .Values.persistentVolume.storage }} 
+  accessModes: 
+  {{- range .Values.persistentVolume.accessModes }}
+    - {{ . }}
+  {{- end}}
+  hostPath: 
+    path: {{ .Values.persistentVolume.hostPath.path}}
