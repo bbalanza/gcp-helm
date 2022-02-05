@@ -27,4 +27,4 @@ persistentVolume:
     - ReadWriteMany
   hostPath:
     path: /opt/postgres/data
-  storageClassName: standard
+  storageClassName: microk8s-hostpath
