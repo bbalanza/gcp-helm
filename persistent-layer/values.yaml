@@ -17,8 +17,8 @@ deployment:
   mountPath: /var/lib/postgresql/data 
 
 service:
-  type: NodePort
-  nodePort: 30001
+  type: ClusterIP
+  nodePort: 3001
 
 persistentVolume:
   storage: 1Gi
@@ -27,4 +27,3 @@ persistentVolume:
     - ReadWriteMany
   hostPath:
     path: /opt/postgres/data
-  storageClassName: standard
