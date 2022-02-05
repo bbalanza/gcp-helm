@@ -1,12 +1,11 @@
 {{- $name := include "persistent-layer.name" . -}}
 {{- $selectorLabels := include "persistent-layer.selectorLabels" . -}}
 apiVersion: apps/v1
-kind: StatefulSet
+kind: Deployment
 metadata:
-  name: {{ $name }}-statefulSet
+  name: {{ $name }}-deployment
 spec:
-  serviceName: {{ $name }}
-  replicas: {{ .Values.replicaCount }}
+  replicas: {{ .Values.deployment.replicaCount }}
   selector:
     matchLabels: {{ $selectorLabels | nindent 6 }}
   template:
@@ -18,14 +17,23 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default "latest" }}" 
           imagePullPolicy: {{ .Values.image.pullPolicy | default "IfNotPresent"}}
           ports:
-            - containerPort: {{ .Values.statefulSet.containerPort | default 5432}}
+            - containerPort: {{ .Values.port | default 5432}}
           envFrom:
             - configMapRef:
-              name: {{ $name }}-config
+                name: {{ $name }}-config
           env:
-            - name: POSTGRESS_PASSWORD
+            - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ $name }}-secret
-                  key: POSTGRESS_PASSWORD
+                  key: POSTGRES_PASSWORD
+          volumeMounts:
+            - mountPath: {{ .Values.deployment.mountPath | default "/var/lib/postgresql/data" }}  
+              name: {{ $name }}-volume
+      volumes:
+        - name: {{ $name }}-volume
+          persistentVolumeClaim:
+            claimName: {{ $name }}-pv-claim
+
+            
           
