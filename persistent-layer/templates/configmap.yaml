@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: {{ printf "%s-config" (include "persistent-layer.name" .) }}
 data:
-{{ (.Files.Glob "config/_env.*").AsConfig | indent 2}}
+{{ (.Files.Glob "config/env/*").AsConfig | indent 2}}
