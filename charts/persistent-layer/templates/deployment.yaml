@@ -1,3 +1,4 @@
+{{- $applicationName := .Values.global.applicationName -}}
 {{- $name := include "persistent-layer.name" . -}}
 {{- $selectorLabels := include "persistent-layer.selectorLabels" . -}}
 apiVersion: apps/v1
@@ -20,12 +21,12 @@ spec:
             - containerPort: {{ .Values.port | default 5432}}
           envFrom:
             - configMapRef:
-                name: {{ $name }}-config
+                name: {{ $applicationName }}-config
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ $name }}-secret
+                  name: {{ $applicationName }}-secret
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: {{ .Values.deployment.mountPath | default "/var/lib/postgresql/data" }}  
