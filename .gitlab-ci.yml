@@ -27,4 +27,4 @@ upload:
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - cat gcloud-service-key.json | helm registry login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
     - gcloud config set project $GCP_PROJECT_ID
-    - helm push ./out/strapi-0.1.1.tgz oci://us-central1-docker.pkg.dev/
+    - helm push ./out/strapi-0.1.0.tgz oci://us-central1-docker.pkg.dev/
