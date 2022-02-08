@@ -16,8 +16,8 @@ port: 8000
 service:
   nodePort: 30007
   targetPort: 8000
-  type: NodePort
-  clusterIPNone: false
+  type: ClusterIP
+  clusterIPNone: none
 
 hpa:
   minReplicas: 1
