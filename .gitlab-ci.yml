@@ -4,7 +4,7 @@ stages:
 upload:
   stage: upload
   image: 
-    name: alpine/helm:latest
+    name: alpine/helm
     entrypoint: [/bin/sh]
   script:
     - echo "Packaging chart:"
