@@ -9,7 +9,7 @@ spec:
     apiVersion: apps/v1
     kind: Deployment
     name: {{ $deploymentName }}
-  minReplicas: 1
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 75
+  minReplicas: {{ .Values.hpa.minReplicas | default 1 }}
+  maxReplicas: {{ .Values.hpa.maxReplicas | default 10 }}
+  targetCPUUtilizationPercentage: {{ .Values.hpa.cpuUtilizationPercentate | default 50 }}
 

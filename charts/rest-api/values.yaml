@@ -18,3 +18,8 @@ service:
   targetPort: 8000
   type: NodePort
   clusterIPNone: {}
+
+hpa:
+  minReplicas: 1
+  maxReplicas: 10
+  cpuUtilizationPercentate: 60
