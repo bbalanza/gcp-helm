@@ -1,1 +1,4 @@
 charts/web-ui
+charts/rest-api/backend
+.git
+.vscode
