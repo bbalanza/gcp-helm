@@ -11,5 +11,8 @@ spec:
   selector: {{ include "rest-api.selectorLabels" . | nindent 4 }}
   ports:
     - port: {{ .Values.port | default 8000}}
+      name: {{ include "rest-api.name" . | printf "%s-port" }}
+      {{- if eq .Values.service.type "NodePort" }}
       targetPort: {{ .Values.service.targetPort | default .Values.port 8000}}
       nodePort: {{ .Values.service.nodePort | default 30007}}
+      {{- end }}
