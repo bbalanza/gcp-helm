@@ -4,8 +4,6 @@ stages:
 upload:
   stage: upload
   image: google/cloud-sdk:alpine
-  dependencies:
-    - package
   services:
     - docker:dind
   script:
