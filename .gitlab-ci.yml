@@ -3,16 +3,9 @@ stages:
     
 upload:
   stage: upload
-  image: google/cloud-sdk:alpine
-  services:
-    - docker:dind
-    - alpine/helm:latest
+  image: google/cloud-sdk:latest
   script:
     - echo "Packaging chart:"
-    - alias helm="docker run -ti --rm -v $(pwd):/apps -w /apps \
-      -v ~/.kube:/root/.kube -v ~/.helm:/root/.helm -v ~/.config/helm:/root/.config/helm \
-      -v ~/.cache/helm:/root/.cache/helm \
-      alpine/helm"
     - helm package . -d ./out
     - helm push ./out/strapi-0.1.0.tgz oci://us-central1-docker.pkg.dev/
     - echo "Pushing to Artifact Registry"
