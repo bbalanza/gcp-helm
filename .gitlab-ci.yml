@@ -3,10 +3,8 @@ stages:
     
 upload:
   stage: upload
-  image: alpine/helm:latest
+  image: alpine:latest
+  services:
+    - alpine/helm:latest
   script:
-    - echo "Packaging chart:"
-    - helm package . -d ./out
-    - echo "Pushing to Artifact Registry"
-    - echo gcloud-service-key.json | helm registry login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
-    - helm push ./out/strapi-0.1.0.tgz oci://us-central1-docker.pkg.dev/
+    - helm --help
