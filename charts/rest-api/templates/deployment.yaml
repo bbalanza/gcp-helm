@@ -20,11 +20,11 @@ spec:
         - containerPort: {{ .Values.port | int }}
         resources:
             limits:
-              cpu: "250m"
-              memory: "128M"
+              cpu: "500m"
+              memory: "256M"
             requests:
-              cpu: "125m"
-              memory: "64M"
+              cpu: "200m"
+              memory: "128M"
 
         envFrom:
           - configMapRef:
