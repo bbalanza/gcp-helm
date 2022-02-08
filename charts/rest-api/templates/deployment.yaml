@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: {{ $name }}
+  name: {{ $name | printf "%s-deployment" }}
   labels: {{ include "rest-api.labels" . | nindent 4 }}
 spec:
   selector:
@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: {{ $name }}-container
-        image: "{{ .Values.image }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: {{ .Values.port | int }}
@@ -22,6 +22,17 @@ spec:
             limits:
               cpu: "250m"
               memory: "128M"
+            requests:
+              cpu: "125m"
+              memory: "64M"
+
+        envFrom:
+          - configMapRef:
+              name: {{ $name }}-config
+          - configMapRef:
+              name: {{ .Values.global.applicationName }}-config
+          - secretRef:
+              name: {{ .Values.global.applicationName }}-secret
 
 
             

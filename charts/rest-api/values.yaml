@@ -5,11 +5,16 @@
 replicaCount: 1
 
 image:
-  repository: nginx
-  pullPolicy: IfNotPresent
+  repository: localhost:32000/strapi
+  pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: ""
+  tag: "latest"
 
 imagePullSecrets: []
 nameOverride: ""
 port: 8000
+service:
+  nodePort: 30007
+  targetPort: 8000
+  type: NodePort
+  clusterIPNone: {}
