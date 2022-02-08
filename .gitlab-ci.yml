@@ -6,6 +6,7 @@ upload:
   image: google/cloud-sdk:alpine
   services:
     - docker:dind
+    - alpine/helm:latest
   script:
     - echo "Packaging chart:"
     - helm package . -d ./out
