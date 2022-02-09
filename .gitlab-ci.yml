@@ -27,6 +27,6 @@ deploy:
     - gcloud auth activate-service-account --key-file gcloud-service-key.json
     - gcloud config set project $GCP_PROJECT_ID 
     - gcloud container clusters get-credentials --zone us-central1-a sc-cluster
-    - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get-helm-3 > get_helm.sh chmod 700 get_helm.sh ./get_helm.sh
+    - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get-helm-3 > get_helm.sh && chmod 700 get_helm.sh && ./get_helm.sh
     - cat gcloud-service-key.json | helm registry login -u _json_key --password-stdin https://us-central1-docker.pkg.dev
     - helm install hello-chart oci://us-central1-docker.pkg.dev/$GCP_PROJECT_ID/sc-helm/strapi --version 0.1.0
