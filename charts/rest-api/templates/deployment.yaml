@@ -13,25 +13,18 @@ spec:
       labels: {{ include "rest-api.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-      - name: {{ $name }}-container
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: {{ .Values.port | int }}
-        resources:
-            limits:
-              cpu: "500m"
-              memory: "256M"
-            requests:
-              cpu: "200m"
-              memory: "128M"
-        envFrom:
-          - configMapRef:
-              name: {{ $name }}-config
-          - configMapRef:
-              name: {{ .Values.global.applicationName }}-config
-          - secretRef:
-              name: {{ .Values.global.applicationName }}-secret
-
+        - name: {{ $name }}-container
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: IfNotPresent
+          ports:
+          - containerPort: {{ .Values.port | int }}
+          envFrom:
+            - configMapRef:
+                name: {{ $name }}-config
+            - configMapRef:
+                name: {{ .Values.global.applicationName }}-config
+            - secretRef:
+                name: {{ .Values.global.applicationName }}-secret
+          resources: {{ toYaml .Values.resources | nindent 12 }}
 
             
