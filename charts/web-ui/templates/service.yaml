@@ -11,6 +11,7 @@ spec:
   selector: {{ include "web-ui.selectorLabels" . | nindent 4 }}
   ports:
     - port: {{ .Values.port | default 3000 }}
+      protocol: {{ .Values.service.protocol | default "TCP" }}
       name: {{ include "web-ui.name" . | printf "%s-port" }}
       {{- if ne .Values.service.type "ClusterIP" }}
       targetPort: {{ .Values.service.targetPort | default .Values.port 3000 }}

@@ -32,7 +32,8 @@ service:
   type: NodePort
   clusterIPNone: false
   targetPort: 3000
-  nodePort: 30007 
+  nodePort: {} 
+  protcol: {}
 
 resources: 
   # We usually recommend not to specify default resources and to leave this as a conscious
