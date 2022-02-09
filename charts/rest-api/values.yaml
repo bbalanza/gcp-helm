@@ -5,7 +5,7 @@
 replicaCount: 1
 
 image:
-  repository: localhost:32000/strapi
+  repository: us-central1-docker.pkg.dev/software-containerization-vu/sc-helm/rest-api
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
