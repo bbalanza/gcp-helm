@@ -19,7 +19,7 @@ pushToRegistry:
 deploy:
   stage: deploy
   image:
-    name: google/gcloud-sdk
+    name: google/cloud-sdk:alpine
     entrypoint: ["/bin/sh", "-c"]
   script:
     - echo "Deploying to GKE"
