@@ -21,9 +21,7 @@ service:
   nodePort: 3001
 
 persistentVolume:
-  storage: 1Gi
-  storageRequest: 1Gi
+  storage: 5Gi
+  storageRequest: 5Gi
   accessModes:
-    - ReadWriteMany
-  hostPath:
-    path: /opt/postgres/data
+    - ReadWriteOnce
