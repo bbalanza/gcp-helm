@@ -19,7 +19,7 @@ pushToRegistry:
 deploy:
   stage: deploy
   image:
-    name: ubuntu:20.04
+    name: alpine
   script:
     - echo "Installing Dependencies"
     - apk add curl openssl tee
