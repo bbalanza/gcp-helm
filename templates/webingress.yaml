@@ -1,0 +1,10 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.global.applicationName | printf "%s-ingress" }}
+spec:
+  defaultBackend:
+    service:
+      name: web-ui-service
+      port:
+        number: 3000

@@ -14,10 +14,10 @@ imagePullSecrets: []
 nameOverride: ""
 port: 8000
 service:
-  nodePort: 30007
+  nodePort: {}
   targetPort: 8000
-  type: ClusterIP
-  clusterIPNone: true
+  type: NodePort
+  clusterIPNone: false
 
 hpa:
   minReplicas: 1

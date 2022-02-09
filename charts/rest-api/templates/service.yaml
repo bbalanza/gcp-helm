@@ -12,7 +12,9 @@ spec:
   ports:
     - port: {{ .Values.port | default 8000}}
       name: {{ include "rest-api.name" . | printf "%s-port" }}
-      {{- if eq .Values.service.type "NodePort" }}
+      {{- if ne .Values.service.type "ClusterIP" }}
       targetPort: {{ .Values.service.targetPort | default .Values.port 8000}}
+      {{- if .Values.service.nodePort }}
       nodePort: {{ .Values.service.nodePort | default 30007}}
+      {{- end }}
       {{- end }}
