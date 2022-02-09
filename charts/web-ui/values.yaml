@@ -5,7 +5,7 @@
 replicaCount: 3
 
 image:
-  repository: localhost:32000/web-ui
+  repository: us-central1-docker.pkg.dev/software-containerization-vu/sc-helm/web-ui
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
@@ -29,7 +29,7 @@ ingress:
 
 port: 3000
 service:
-  type: LoadBalancer
+  type: NodePort
   clusterIPNone: false
   targetPort: 3000
   nodePort: 30007 
