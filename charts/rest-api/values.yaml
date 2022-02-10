@@ -8,7 +8,7 @@ image:
   repository: us-central1-docker.pkg.dev/software-containerization-vu/sc-helm/rest-api
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "0.1.3"
+  tag: "0.1.4"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -30,8 +30,8 @@ resources:
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
   limits:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 500m
+    memory: 512M
   requests:
-    cpu: 100m
-    memory: 128Mi
+    cpu: 250m
+    memory: 256M
