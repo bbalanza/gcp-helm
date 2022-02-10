@@ -5,10 +5,14 @@ metadata:
   name: {{ $name | printf "%s-network-policy" }}
 spec:
   podSelector:
-    matchLabels: 
-      access: web-ui
-  ingress: []
-  egress: []
+    matchLabels: {{ printf "app.kubernetes.io/name: %s" $name | nindent 6 }}
+  ingress: 
+  - {}
+  egress:
+  - to:
+      - podSelector:
+          matchLabels:
+            access: rest-api
   policyTypes:
   - Ingress
   - Egress

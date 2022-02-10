@@ -1,15 +1,19 @@
+{{ $name := include "rest-api.name" . }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "persistent-layer.name" . | printf "%s-network-policy" }}
+  name: {{ $name | printf "%s-network-policy" }}
 spec:
   podSelector:
-    matchLabels: {{ include "persistent-layer.selectorLabels" .  | nindent 6 }}
+    matchLabels: {{ printf "app.kubernetes.io/name: %s" $name | nindent 6 }}
   ingress:
   - from:
     - podSelector:
         matchLabels: 
-          access: rest-api 
+          access: web-ui 
+    - podSelector:
+        matchLabels:
+          access: persistent-layer
     - ipBlock:
         cidr: 35.191.0.0/16
     - ipBlock:
@@ -18,7 +22,7 @@ spec:
   - to:
     - podSelector:
         matchLabels:
-          access: rest-api
+          access: persistent-layer
   policyTypes:
   - Ingress
   - Egress
