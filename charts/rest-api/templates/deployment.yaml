@@ -11,6 +11,7 @@ spec:
   template:
     metadata:
       labels: {{ include "rest-api.selectorLabels" . | nindent 8 }}
+        access: rest-api
     spec:
       containers:
         - name: {{ $name }}-container

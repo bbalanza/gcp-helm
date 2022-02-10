@@ -11,6 +11,7 @@ spec:
   template:
     metadata:
       labels: {{ include "web-ui.selectorLabels" . | nindent 8 }} 
+        access: web-ui
     spec:
       containers:
         - name: {{ $name }}-container

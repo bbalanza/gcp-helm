@@ -12,6 +12,7 @@ spec:
   template:
     metadata:
       labels: {{ $selectorLabels | nindent 8 }}
+        egress: persistent-layer
     spec:
       containers:
         - name: "{{ $name }}-container"
