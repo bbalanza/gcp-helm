@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "rest-api.name" . | printf "%s-network-policy" }}
+spec:
+  podSelector:
+    matchLabels: {{ include "rest-api.selectorLabels" .  | nindent 6 }}
+  ingress:
+  - from:
+    - podSelector:
+        matchLabels: 
+          access: web-ui 
+          access: persistent-layer
+  egress:
+  - to:
+    - podSelector:
+        matchLabels:
+          access: persistent-layer
+  policyTypes:
+  - Ingress
+  - Egress
