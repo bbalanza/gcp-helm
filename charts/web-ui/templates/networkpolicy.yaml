@@ -1,12 +1,14 @@
+{{ $name := include "web-ui.name" . }}
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: {{ include "web-ui.name" . | printf "%s-network-policy" }}
+  name: {{ $name | printf "%s-network-policy" }}
 spec:
   podSelector:
-    matchLabels: {{ include "web-ui.selectorLabels" .  | nindent 6 }}
-  ingress:
-  - {}
+    matchLabels: 
+      access: web-ui
+  ingress: []
+  egress: []
   policyTypes:
   - Ingress
   - Egress
