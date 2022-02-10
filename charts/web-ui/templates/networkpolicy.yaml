@@ -1,0 +1,12 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: {{ include "web-ui.name" . | printf "%s-network-policy" }}
+spec:
+  podSelector:
+    matchLabels: {{ include "web-ui.selectorLabels" .  | nindent 6 }}
+  ingress:
+  - {}
+  policyTypes:
+  - Ingress
+  - Egress
